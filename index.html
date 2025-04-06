@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Asegura el diseño responsive en dispositivos móviles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LV Group</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet">
+  <style>
+    /* 
+      Paleta de colores minimalista en tonos 
+      que contrastan con el logo de fondo oscuro.
+    */
+    :root {
+      --color-fondo: #f2f2f2;   /* Fondo general suave */
+      --color-primario: #000;   /* Negro para textos principales y botones */
+      --color-secundario: #fff; /* Blanco para fondos de contenedores y textos en botones */
+      --color-gris: #333;       /* Gris oscuro para detalles */
+      --color-borde: #ddd;      /* Gris claro para bordes */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--color-fondo);
+      color: var(--color-gris);
+      min-height: 100vh;
+    }
+
+    /* Encabezado con el título centrado */
+    header {
+      text-align: center;
+      padding: 40px 20px 20px; 
+    }
+    header h1 {
+      font-size: 3em;
+      color: var(--color-primario);
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 1.2em;
+      font-weight: 300;
+      text-transform: capitalize; /* Capitaliza cada palabra */
+      color: var(--color-primario);
+    }
+
+    /* Contenedor principal con fondo blanco */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--color-secundario);
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 40px;
+    }
+
+    /* Navegación de pestañas */
+    #tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    #tabs button {
+      background: var(--color-secundario);
+      color: var(--color-primario);
+      border: 1px solid var(--color-borde);
+      padding: 12px 25px;
+      margin: 0 10px;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #tabs button:hover {
+      background: #eaeaea;
+      transform: translateY(-2px);
+    }
+    #tabs button:focus {
+      outline: 2px solid var(--color-primario);
+    }
+    #secureTabs {
+      display: none;
+    }
+
+    /* Contenido de cada pestaña */
+    .tab-content {
+      background: var(--color-secundario);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: none;
+      margin-bottom: 30px;
+      animation: fadeIn 0.5s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: var(--color-gris);
+    }
+    input[type="text"], input[type="password"], input[type="number"], input[type="week"], select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--color-borde);
+      border-radius: 5px;
+      font-size: 1em;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    input[type="text"]:focus, 
+    input[type="password"]:focus, 
+    input[type="number"]:focus, 
+    input[type="week"]:focus, 
+    select:focus {
+      border-color: var(--color-primario);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      outline: none;
+    }
+
+    /* Botones de acción */
+    button {
+      background: var(--color-primario);
+      color: var(--color-secundario);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    button:hover {
+      background: #444;
+      transform: translateY(-2px);
+    }
+    button:focus {
+      outline: 2px solid var(--color-gris);
+    }
+
+    /* Tabla de productos */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid var(--color-borde);
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background: var(--color-primario);
+      color: var(--color-secundario);
+    }
+    input[type="checkbox"] {
+      transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5em;
+      }
+      header p {
+        font-size: 1em;
+      }
+      #tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+      #tabs button {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LV GROUP</h1>
+    <p>Plataforma De Pedidos Y Gestion De Productos</p>
+  </header>
+
+  <div class="container">
+    <!-- Navegación de pestañas -->
+    <div id="tabs" role="tablist">
+      <button role="tab" onclick="showTab('login')">Ingreso</button>
+      <span id="secureTabs">
+        <button role="tab" onclick="showTab('order')">Pedir</button>
+        <button role="tab" onclick="showTab('list')">Lista De Productos</button>
+      </span>
+    </div>
+
+    <!-- Pestaña de Ingreso -->
+    <div id="login" class="tab-content active" role="tabpanel">
+      <h2>Ingreso</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Usuario:</label>
+          <input type="text" id="username" value="manager000">
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña:</label>
+          <input type="password" id="password" value="lvgroup000">
+        </div>
+        <button type="button" onclick="login()">Ingresar</button>
+      </form>
+    </div>
+
+    <!-- Pestaña de Pedir -->
+    <div id="order" class="tab-content" role="tabpanel">
+      <h2>Pedir Producto</h2>
+      <form id="orderForm">
+        <div class="form-group">
+          <label for="restaurant">Restaurante:</label>
+          <select id="restaurant">
+            <option value="La Viejona">La Viejona</option>
+            <option value="Snack Attack Zaragoza">Snack Attack Zaragoza</option>
+            <option value="Snack Attack Horizon">Snack Attack Horizon</option>
+            <option value="La Terraza Zaragoza">La Terraza Zaragoza</option>
+            <option value="La Terraza Eastlake">La Terraza Eastlake</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="supermarket">Supermercado:</label>
+          <select id="supermarket">
+            <option value="Walmart">Walmart</option>
+            <option value="Sams">Sams</option>
+            <option value="El Super">El Super</option>
+            <option value="Big Boy">Big Boy</option>
+            <option value="Restaurant Depot">Restaurant Depot</option>
+            <option value="Economy">Economy</option>
+            <option value="La Dulceria">La Dulceria</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="product">Producto:</label>
+          <input type="text" id="product" placeholder="Nombre del producto">
+        </div>
+        <div class="form-group">
+          <label for="quantity">Cantidad:</label>
+          <input type="number" id="quantity" min="1" value="1">
+        </div>
+        <div class="form-group">
+          <label for="requester">Nombre Del Solicitante:</label>
+          <input type="text" id="requester" placeholder="Nombre del solicitante">
+        </div>
+        <div class="form-group">
+          <label for="week">Semana Del Año 2025:</label>
+          <input type="week" id="week" min="2025-W01" max="2025-W52" onchange="updateWeekDisplay()">
+          <div id="weekDisplay" style="margin-top:5px; font-style: italic;"></div>
+        </div>
+        <div class="form-group">
+          <button type="button" onclick="submitProduct()">Enviar Producto</button>
+          <button type="button" onclick="endSession()">Sesión Terminada</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Pestaña de Lista De Productos -->
+    <div id="list" class="tab-content" role="tabpanel">
+      <h2>Lista De Productos</h2>
+      <div class="form-group">
+        <label for="filterWeek">Semana Del Año 2025:</label>
+        <select id="filterWeek" onchange="updateProductTable()">
+          <option value="">Todas</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="filterSupermarket">Supermercado:</label>
+        <select id="filterSupermarket" onchange="updateProductTable()">
+          <option value="">Todos</option>
+          <option value="Walmart">Walmart</option>
+          <option value="Sams">Sams</option>
+          <option value="El Super">El Super</option>
+          <option value="Big Boy">Big Boy</option>
+          <option value="Restaurant Depot">Restaurant Depot</option>
+          <option value="Economy">Economy</option>
+          <option value="La Dulceria">La Dulceria</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="filterRestaurant">Restaurante:</label>
+        <select id="filterRestaurant" onchange="updateProductTable()">
+          <option value="">Todos</option>
+          <option value="La Viejona">La Viejona</option>
+          <option value="Snack Attack Zaragoza">Snack Attack Zaragoza</option>
+          <option value="Snack Attack Horizon">Snack Attack Horizon</option>
+          <option value="La Terraza Zaragoza">La Terraza Zaragoza</option>
+          <option value="La Terraza Eastlake">La Terraza Eastlake</option>
+        </select>
+      </div>
+      <table id="productTable">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Solicitante</th>
+            <th>Confirmar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Se llenará dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let loggedIn = false;
+    let products = [];
+
+    function showTab(tabId) {
+      if (!loggedIn && (tabId === 'order' || tabId === 'list')) {
+        alert('Debe iniciar sesión para acceder a esta sección.');
+        return;
+      }
+      const tabs = document.getElementsByClassName('tab-content');
+      for (let tab of tabs) {
+        tab.classList.remove('active');
+      }
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      if (username === 'manager000' && password === 'lvgroup000') {
+        loggedIn = true;
+        document.getElementById('secureTabs').style.display = 'inline';
+        showTab('order');
+      } else {
+        alert('Usuario o contraseña incorrectos');
+      }
+    }
+
+    function updateWeekDisplay() {
+      const weekInput = document.getElementById('week').value;
+      if (weekInput) {
+        const parts = weekInput.split('-W');
+        const year = parseInt(parts[0]);
+        const week = parseInt(parts[1]);
+        let simple = new Date(year, 0, 1 + (week - 1) * 7);
+        let day = simple.getDay();
+        let diff = simple.getDate() - day + (day === 0 ? -6 : 1);
+        let monday = new Date(simple.setDate(diff));
+        let sunday = new Date(monday);
+        sunday.setDate(monday.getDate() + 6);
+        document.getElementById('weekDisplay').innerText = 'Inicio: ' + monday.toLocaleDateString() + ' - Fin: ' + sunday.toLocaleDateString();
+      } else {
+        document.getElementById('weekDisplay').innerText = '';
+      }
+    }
+
+    function submitProduct() {
+      const restaurant = document.getElementById('restaurant').value;
+      const supermarket = document.getElementById('supermarket').value;
+      const product = document.getElementById('product').value;
+      const quantity = document.getElementById('quantity').value;
+      const requester = document.getElementById('requester').value;
+      const week = document.getElementById('week').value;
+      
+      if (!product || !requester || !week) {
+        alert('Por favor, complete todos los campos requeridos');
+        return;
+      }
+      
+      products.push({
+        restaurant,
+        supermarket,
+        product,
+        quantity,
+        requester,
+        week
+      });
+      
+      alert('Su Producto Ha Sido Correctamente Solicitado');
+      
+      document.getElementById('product').value = '';
+      document.getElementById('quantity').value = 1;
+      document.getElementById('requester').value = '';
+    }
+
+    function endSession() {
+      updateProductTable();
+      loggedIn = false;
+      document.getElementById('secureTabs').style.display = 'none';
+      showTab('login');
+    }
+
+    function updateProductTable() {
+      const tbody = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+      tbody.innerHTML = '';
+      const filterWeek = document.getElementById('filterWeek').value;
+      const filterSupermarket = document.getElementById('filterSupermarket').value;
+      const filterRestaurant = document.getElementById('filterRestaurant').value;
+      
+      products.forEach((item, index) => {
+        if ((!filterWeek || item.week === filterWeek) &&
+            (!filterSupermarket || item.supermarket === filterSupermarket) &&
+            (!filterRestaurant || item.restaurant === filterRestaurant)) {
+          let row = tbody.insertRow();
+          let cellProduct = row.insertCell();
+          cellProduct.innerText = item.product;
+          let cellQuantity = row.insertCell();
+          cellQuantity.innerText = item.quantity;
+          let cellRequester = row.insertCell();
+          cellRequester.innerText = item.requester;
+          let cellCheck = row.insertCell();
+          cellCheck.innerHTML = '<input type="checkbox" id="check_' + index + '">';
+        }
+      });
+    }
+
+    function populateWeekFilter() {
+      const filterWeekSelect = document.getElementById('filterWeek');
+      for (let i = 1; i <= 52; i++) {
+        let option = document.createElement('option');
+        let weekNumber = i < 10 ? '0' + i : i;
+        option.value = `2025-W${weekNumber}`;
+        option.text = `Semana ${i} (2025-W${weekNumber})`;
+        filterWeekSelect.appendChild(option);
+      }
+    }
+    populateWeekFilter();
+  </script>
+  <!-- 
+    NOTA:
+    1. Se ha eliminado el código del logo como imagen y se ha reemplazado por el título "LV GROUP".
+    2. Para hacer la página accesible en línea, súbela a un servicio como GitHub Pages, Netlify o Vercel.
+  -->
+</body>
+</html>
